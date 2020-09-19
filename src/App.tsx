@@ -13,9 +13,11 @@ function App() {
   const [oneSecs, setOneSecs] = useState(0);
   const [hundredMs, setHundredMs] = useState(0);
 
+  const [username, setUsername] = useState("John Doe")
+
   return (
     <>
-      <Header />
+      <Header username={username} />
       <Container maxWidth="md">
         <Grid container spacing={3} justify="space-evenly" alignItems="center">
           <Grid item>

@@ -1,4 +1,10 @@
-import { Button, ButtonGroup, Card, CardContent } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  Chip,
+} from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { toFormattedTime } from "../util";
 
@@ -52,15 +58,19 @@ const Timer: React.FC<{
               {title || "Timer"} - (i {interval / 1000}s)
             </h1>
             <h1>{toFormattedTime(counter, interval)}</h1>
-            <h3>{status}</h3>
+            <p>
+              <Chip label={status} variant="outlined" />
+            </p>
 
-            <ButtonGroup variant="contained" >
+            <ButtonGroup variant="contained">
               {status === "HALTED" ? (
                 <Button onClick={() => startTimer()}>Start</Button>
               ) : (
                 <Button onClick={() => pauseTimer()}>Pause</Button>
               )}
-              <Button color="primary" onClick={() => resetTimer()}>Reset</Button>
+              <Button color="primary" onClick={() => resetTimer()}>
+                Reset
+              </Button>
             </ButtonGroup>
           </div>
         </CardContent>
