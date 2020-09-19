@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Timer from "./components/Timer";
 
 import "./App.css";
+
+import Timer from "./components/Timer";
 import { toFormattedTime } from "./util";
 
 function App() {

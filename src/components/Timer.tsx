@@ -1,34 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toFormattedTime } from "../util";
 
-export type TimerStatus = "RUNNING" | "PAUSED";
+export type TimerStatus = "RUNNING" | "HALTED";
 
 const Timer: React.FC<{
   title?: string;
   interval: number;
   callbackTime: (t: number) => void;
 }> = ({ interval, title, callbackTime }) => {
-  const [time1, setTime1] = useState(0);
-  const interval1 = useRef<NodeJS.Timeout>();
+  const [counter, setCounter] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout>();
+  const [status, setStatus] = useState<TimerStatus>("HALTED");
 
   const pauseTimer = () => {
-    interval1.current && clearInterval(interval1.current);
+    intervalRef.current && clearInterval(intervalRef.current);
+    setStatus("HALTED");
   };
 
   const startTimer = () => {
     pauseTimer();
-    interval1.current = setInterval(() => {
-      setTime1((t) => {
+    intervalRef.current = setInterval(() => {
+      setCounter((t) => {
         callbackTime(t + 1);
         return t + 1;
       });
     }, interval);
+    setStatus("RUNNING");
   };
 
   const resetTimer = () => {
     pauseTimer();
-    setTime1(0);
+    setCounter(0);
     callbackTime(0);
+    setStatus("HALTED");
   };
 
   useEffect(() => {
@@ -44,12 +48,18 @@ const Timer: React.FC<{
         <span>
           {title || "Timer"}-(i {interval / 1000}s){" "}
         </span>
-        <span>
-          {toFormattedTime(time1, interval)}
-        </span>
+        <span>{toFormattedTime(counter, interval)}</span>
       </h1>
-      <button onClick={() => startTimer()}>Start</button>
-      <button onClick={() => pauseTimer()}>Pause</button>
+      <h3>{status}</h3>
+      {status === "HALTED" ? (
+        <>
+          <button onClick={() => startTimer()}>Start</button>
+        </>
+      ) : (
+        <>
+          <button onClick={() => pauseTimer()}>Pause</button>
+        </>
+      )}
       <button onClick={() => resetTimer()}>Reset</button>
     </div>
   );
