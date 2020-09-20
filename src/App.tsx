@@ -1,5 +1,6 @@
 import { Container, Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getVerifiedUsername } from "./api/ApiClient";
 
 import "./App.css";
 import Footer from "./components/Footer";
@@ -13,7 +14,18 @@ function App() {
   const [oneSecs, setOneSecs] = useState(0);
   const [hundredMs, setHundredMs] = useState(0);
 
-  const [username, setUsername] = useState("John Doe")
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    getVerifiedUsername()
+      .then((username: string) => {
+        if (username) {
+          setUsername(username);
+        }
+      })
+      .catch((err) => console.error(err));
+    return () => {};
+  }, []);
 
   return (
     <>

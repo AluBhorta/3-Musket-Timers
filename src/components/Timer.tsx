@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Card,
@@ -58,9 +59,9 @@ const Timer: React.FC<{
               {title || "Timer"} - (i {interval / 1000}s)
             </h1>
             <h1>{toFormattedTime(counter, interval)}</h1>
-            <p>
+            <Box marginBottom={2}>
               <Chip label={status} variant="outlined" />
-            </p>
+            </Box>
 
             <ButtonGroup variant="contained">
               {status === "HALTED" ? (
