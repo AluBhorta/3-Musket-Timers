@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/3-Musket-Timers/precache-manifest.9c4f7f206e44ea87d7a585c19b4f2d0d.js"
+  "/3-Musket-Timers/precache-manifest.ebec483f32f2067945e503d95c3ec031.js"
 );
 
 self.addEventListener('message', (event) => {
